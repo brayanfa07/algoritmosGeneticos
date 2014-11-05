@@ -3,11 +3,9 @@
 #####IC3002 Análisis de Algoritmos - Prof. Mauricio Rojas
 #####201157035 Brayan Fajardo Alvarado - Fecha: 04 de noviembre de 2014
 #####TAREA: Algoritmos Genéticos
-___________
-______________
+
 __________
 #####Algoritmos Genéticos
-____
 ____
 
 #####1) Problema de la mochila
