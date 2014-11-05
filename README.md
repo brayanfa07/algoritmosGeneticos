@@ -13,12 +13,8 @@ ____
 #####1) Problema de la mochila
 
 ```
-
 import java.util.Random;
 
-/**
- * Created by Brayan on 02/11/2014.
- */
 public class Elemento {
 
     public double getFitnessEntreTotal() {
@@ -52,16 +48,25 @@ public class Elemento {
         fitnessEntreTotal = 0;
         valorBinario = generarBinario(this.valor);
     }
+    Elemento(){
+        this.valor = 0;
+        this.peso = 0;
+        this.seUsa = false;
+        fitness = 0;
+        fitnessEntreTotal = 0;
+        valorBinario = String.valueOf(0);
+
+    }
 
     public int generarPeso(int maximo){
         Random rnd = new Random();
-        int num = (int)(rnd.nextDouble() * maximo);
+        int num = (int)(rnd.nextDouble() * maximo + 1);
         return num;
     }
 
     public int generarValor(int maximo){
         Random  rnd = new Random();
-        int num = (int)(rnd.nextDouble() * maximo);
+        int num = (int)(rnd.nextDouble() * maximo + 1);
         return num;
     }
 
@@ -108,119 +113,108 @@ public class Elemento {
         this.fitness = fitness;
     }
 }
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import java.util.Random;
 
-/**
- * Created by Brayan on 02/11/2014.
- */
-public class Elemento {
+public class Poblacion {
 
-    public double getFitnessEntreTotal() {
-        return fitnessEntreTotal;
+    Elemento elemento1;
+    Elemento elemento2;
+    Elemento elemento3;
+    Elemento elemento4;
+    Elemento elemento5;
+    Elemento elemento6;
+    Elemento elemento7;
+
+    public Poblacion(int pesoMaximo, int valorMaximo){
+        elemento1 = new Elemento(valorMaximo, pesoMaximo);
+        elemento2 = new Elemento(valorMaximo, pesoMaximo);
+        elemento3 = new Elemento(valorMaximo, pesoMaximo);
+        elemento4 = new Elemento(valorMaximo, pesoMaximo);
+        elemento5 = new Elemento(valorMaximo, pesoMaximo);
+        elemento6 = new Elemento(valorMaximo, pesoMaximo);
+        elemento7 = new Elemento(valorMaximo, pesoMaximo);
     }
 
-    public void setFitnessEntreTotal(double fitnessEntreTotal) {
-        this.fitnessEntreTotal = fitnessEntreTotal;
+
+
+    public void setElemento1(Elemento elemento1) {
+        this.elemento1 = elemento1;
     }
 
-    public String getValorBinario() {
-        return valorBinario;
+    public void setElemento2(Elemento elemento2) {
+        this.elemento2 = elemento2;
     }
 
-    public void setValorBinario(String valorBinario) {
-        this.valorBinario = valorBinario;
+    public void setElemento3(Elemento elemento3) {
+        this.elemento3 = elemento3;
     }
 
-    int valor;
-    int peso;
-    boolean seUsa;
-    double fitness;
-    double fitnessEntreTotal;
-    String valorBinario;
-
-    Elemento(int valorMaximo, int pesoMaximo) {
-        this.valor = generarValor(valorMaximo);
-        this.peso = generarPeso(pesoMaximo);
-        this.seUsa = false;
-        fitness = calcularFitness(this.valor);
-        fitnessEntreTotal = 0;
-        valorBinario = generarBinario(this.valor);
+    public void setElemento4(Elemento elemento4) {
+        this.elemento4 = elemento4;
     }
 
-    public int generarPeso(int maximo){
-        Random rnd = new Random();
-        int num = (int)(rnd.nextDouble() * maximo);
-        return num;
+    public void setElemento5(Elemento elemento5) {
+        this.elemento5 = elemento5;
     }
 
-    public int generarValor(int maximo){
-        Random  rnd = new Random();
-        int num = (int)(rnd.nextDouble() * maximo);
-        return num;
+    public void setElemento6(Elemento elemento6) {
+        this.elemento6 = elemento6;
     }
 
-    public double calcularFitness(int valor){
-        int fitness = valor * valor;
-        double fitnessDouble = (double)fitness;
-        return fitnessDouble;
+    public void setElemento7(Elemento elemento7) {
+        this.elemento7 = elemento7;
     }
 
-    public String generarBinario(int valor){
-        String valorBinario = String.format("%8s", Integer.toBinaryString(valor)).replace(' ', '0');
-        return valorBinario;
+    public Elemento getElemento1() {
+        return elemento1;
     }
 
-    public double getValor() {
-        return valor;
+    public Elemento getElemento2() {
+        return elemento2;
     }
 
-    public void setValor(int valor) {
-        this.valor = valor;
+    public Elemento getElemento3() {
+        return elemento3;
     }
 
-    public double getPeso() {
-        return peso;
+    public Elemento getElemento4() {
+        return elemento4;
     }
 
-    public void setPeso(int peso) {
-        this.peso = peso;
+    public Elemento getElemento5() {
+        return elemento5;
     }
 
-    public boolean isSeUsa() {
-        return seUsa;
+    public Elemento getElemento6() {
+        return elemento6;
     }
 
-    public void setSeUsa(boolean seUsa) {
-        this.seUsa = seUsa;
-    }
-
-    public double getFitness() {
-        return fitness;
-    }
-
-    public void setFitness(double fitness) {
-        this.fitness = fitness;
+    public Elemento getElemento7() {
+        return elemento7;
     }
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import javax.lang.model.element.Element;
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+import java.util.ArrayList;
 
 public class Algoritmo {
 
     Poblacion pob;
     int maximoMochila;
     double sumaMaximo;
-    Elemento [] maximos;
+    ArrayList<Elemento> maximos;
+    Elemento maximo;
 
     Algoritmo(int pesoMaximo, int valorMaximo, int pMaximoMochila){
         pob = new Poblacion(pesoMaximo, valorMaximo);
         maximoMochila = pMaximoMochila;
         sumaMaximo = 0;
-        maximos = new Elemento[7];
+        maximos = new ArrayList<Elemento>();
+        maximo = null;
     }
 
     public Poblacion getPob() {
@@ -247,15 +241,25 @@ public class Algoritmo {
         this.sumaMaximo = sumaMaximo;
     }
 
-    public Elemento[] getMaximos() {
+    public ArrayList<Elemento> getMaximos() {
         return maximos;
     }
 
-    public void setMaximos(Elemento[] maximos) {
+    public void setMaximos(ArrayList<Elemento> maximos) {
         this.maximos = maximos;
     }
 
+    public Elemento getMaximo() {
+        return maximo;
+    }
+
+    public void setMaximo(Elemento maximo) {
+        this.maximo = maximo;
+    }
+
     public int generarFitnessEntreTotal() {
+        System.out.println("Peso máximo de la mochila: " + maximoMochila);
+
         double sumaFitness = pob.elemento1.fitness + pob.elemento2.fitness + pob.elemento3.fitness +
                 pob.elemento4.fitness + pob.elemento5.fitness + pob.elemento6.fitness +
                 pob.elemento7.fitness;
@@ -270,42 +274,61 @@ public class Algoritmo {
         return 0;
     }
 
-    public int obtenerMaximo(){
-        Elemento[] arreglo = new Elemento[7];
-        arreglo[0] = pob.elemento1;
-        arreglo[1] = pob.elemento2;
-        arreglo[2] = pob.elemento3;
-        arreglo[3] = pob.elemento4;
-        arreglo[4] = pob.elemento5;
-        arreglo[5] = pob.elemento6;
-        arreglo[6] = pob.elemento7;
-        Elemento maximo = null;
+    public int obtenerMaximo() {
+        ArrayList <Elemento> arreglo = new ArrayList<Elemento>();
+        arreglo.add(this.pob.elemento1);
+        arreglo.add(this.pob.elemento2);
+        arreglo.add(this.pob.elemento3);
+        arreglo.add(this.pob.elemento4);
+        arreglo.add(this.pob.elemento5);
+        arreglo.add(this.pob.elemento6);
+        arreglo.add(this.pob.elemento7);
+
         int posicion = 0;
+        System.out.println("Fitness 1: " + arreglo.get(0).fitnessEntreTotal);
+        System.out.println("Fitness 2: " + arreglo.get(1).fitnessEntreTotal);
+        System.out.println("Fitness 3: " + arreglo.get(2).fitnessEntreTotal);
+        System.out.println("Fitness 4: " + arreglo.get(3).fitnessEntreTotal);
+        System.out.println("Fitness 5: " + arreglo.get(4).fitnessEntreTotal);
+        System.out.println("Fitness 6: " + arreglo.get(5).fitnessEntreTotal);
+        System.out.println("Fitness 7: " + arreglo.get(6).fitnessEntreTotal);
+        System.out.println("  ");
 
-        for (int k = 0; k < 6; k++) {
-            for (int i = 0; i < arreglo.length - 1; i++) {
-                for (int j = 0; j < arreglo.length - 1; j++) {
-                    if ((arreglo[i].fitnessEntreTotal >= arreglo[j + 1].fitnessEntreTotal) &&
-                            (arreglo[i].peso <= maximoMochila) && sumaMaximo <= maximoMochila) {
-                        maximo = arreglo[i];
-                        posicion = i;
 
-                    }
+       return almacenarMaximos(arreglo, 0);
+    }
+
+
+    public int almacenarMaximos (ArrayList<Elemento> arreglo, int pos){
+        maximo = new Elemento();
+        int posicion = pos;
+        for (int i = 0; i < arreglo.size(); i++) {
+            for (int j = 0; j < arreglo.size(); j++) {
+                if (((arreglo.get(i).fitnessEntreTotal) >= (arreglo.get(i).fitnessEntreTotal)) && ((arreglo.get(i).peso) < maximoMochila) && (sumaMaximo <= maximoMochila)) {
+                    maximo = arreglo.get(i);
+                    posicion = i;
                 }
             }
-            if ((sumaMaximo + maximo.peso) <= maximoMochila){
-                sumaMaximo = sumaMaximo + maximo.peso;
-                maximos[k] = maximo;
-                arreglo[posicion] = null;
-            }
+        }
+        if (((sumaMaximo + maximo.getPeso()) < maximoMochila) && (arreglo.size() > 0)) {
+            sumaMaximo = sumaMaximo + maximo.peso;
+            maximos.add(maximo);
+            arreglo.remove(posicion);
+            almacenarMaximos(arreglo, posicion);
+        }
+        else if (sumaMaximo == maximoMochila) {
+            return 0;
+        }
+        else{
+            return 0;
         }
         return 0;
     }
 
 
     public int retornarElementosMochila(){
-        for (int i = 0; i < maximos.length; i++) {
-            System.out.println("peso: " + maximos[i].peso + ", valor:  " + maximos[i].valor );
+        for (int i = 0; i < maximos.size(); i++) {
+            System.out.println("peso: " + maximos.get(i).getPeso() + ", valor:  " + maximos.get(i).valor );
         }
         return 0;
     }
@@ -317,4 +340,5 @@ public class Algoritmo {
         algoritmo.retornarElementosMochila();
     }
 }
+
 ```
